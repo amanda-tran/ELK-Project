@@ -34,10 +34,10 @@ _Note: Use the [Markdown Table Generator](http://www.tablesgenerator.com/markdow
 
 | Name     | Function | IP Address | Operating System |
 |----------|----------|------------|------------------|
-| Jump Box | Gateway  | 10.0.0.1   | Linux            |
-| TODO     |          |            |                  |
-| TODO     |          |            |                  |
-| TODO     |          |            |                  |
+| Jump Box | Gateway    | 10.0.0.1   | Linux   |
+| WEB-2    | Web Server | 10.1.0.6   | Linux   |
+| WEB-3    | Web Server | 10.1.1.6   | Linux   |
+| ELK      | Monitoring | 10.2.0.4   | Linux   |
 
 ### Access Policies
 
