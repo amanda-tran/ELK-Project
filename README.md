@@ -2,7 +2,7 @@
 
 The files in this repository were used to configure the network depicted below.
 
-![image](https://user-images.githubusercontent.com/38510755/115950267-d4b02100-a49f-11eb-8497-91af4ebe0d77.png)
+![image](https://user-images.githubusercontent.com/38510755/115951503-b13ca480-a4a6-11eb-8452-8c4abf99aba0.png)
 
 
 These files have been tested and used to generate a live ELK deployment on Azure. They can be used to either recreate the entire deployment pictured above. Alternatively, select portions of the playbook file may be used to install only certain pieces of it, such as Filebeat.
@@ -189,4 +189,5 @@ SSH into the control node and follow the steps below:
 -The file you need to update is the filebeat.yml file which is a configuration file that will be dropped into the Elk-Server during the run of the ansible-playbook. When you update the host.cfg file in the ansible directory you will need to create a new group called [elkservers] and add the Private IP of the Elk-Server to the group. Then when configuring the filebeat.yml file you need to designate the Private IP of the Elk-Server in two lines of the .yml file. Lines 1106 and 1806 are the needed to be updated with the Private IP.
 ![image](https://user-images.githubusercontent.com/38510755/115951459-6e7acc80-a4a6-11eb-8fac-e2684ac391ea.png)
 
-_As a **Bonus**, provide the specific commands the user will need to run to download the playbook, update the files, etc._
+URL to check that the ELK server is running: http:[ELK server ip]/app/kibana
+
