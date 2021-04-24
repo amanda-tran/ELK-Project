@@ -58,7 +58,8 @@ A summary of the access policies in place can be found in the table below.
 
 ### Elk Configuration
 
-Ansible was used to automate configuration of the ELK machine. No configuration was performed manually, which is advantageous because the main advantages of automating configuration through Ansible is the ease of use and an extremely easy learning curve. Through the use of Playbooks you are able to configure multiple Machines through the use of a single command after initial configuration. 
+Ansible was used to configure the ELK machine, which is advantageous because everything can be done from a single container in the Jumpbox. Also Playbooks allow us to configure multiple virtual machines through the a single command script. 
+
 
 ```
 #ELK-PLAYBOOK 
@@ -116,22 +117,23 @@ Ansible was used to automate configuration of the ELK machine. No configuration 
 ```
 
 The playbook implements the following tasks:
-- Create a New VM (should be named something simple "Elk-Server") Keep note of the Private IP (10.0.0.11) and the Public IP (0.0.0.0) you will need the Private IP to SSH into the VM and the Public IP to connect to the Kibana Portal (HTTP Site) to view all Metrics/Syslogs.
-- Download and Configure the "elk-docker" container "In the hosts.conf you will need to add a new group [elkservers] and the Private IP (10.0.0.11) to the group. Then you need to create a new ansible-playbook (elk.yml) that will download, install, configures the "Elk-Server" to map the following ports [5601,9200,5044], and starts the container.
-- Launch and expose the container "After installing and starting the new container. You can verify that the container is up and running by SSHing into the container from your JumpBox (SAW). Once you are in the [Elk-Server] run the command [sudo docker ps]
-- Create new Inbound Security Rules to allow Ports: 5601 and 9200 "The Inbound Security Rules should allow access from your Personal Network"
-- Open a new browser and type in the [Public IP:5601] to access the Kibana Portal Site
+- Create a new VM 
+- Download/configer the elk-docker container, and configure it so it matches the IP addresses that you are going to use for ELK machines. 
+- Now create a new ansible-playbook (elk.yml) that will download, install, and configure the ELK-Server VM to map the ports [5601, 9200, 5044] You can check that this container is on your elk VM by doing ```sudo docker ps```
+- To make sure you can connect to said ports, create new Inpound Security Rules in your Security Group on Azure, to allow 5601 and 9200 on your personal network.
+- Connect to http:[ELK server ip]/app/kibana on a new web browser to confirm connection
+-
 The following screenshot displays the result of running `docker ps` after successfully configuring the ELK instance.
 
 ![image](https://user-images.githubusercontent.com/38510755/115951256-5a829b00-a4a5-11eb-9438-75f1c4197f0b.png)
 
 
 ### Target Machines & Beats
-This ELK server is configured to monitor the following machines:
-[10.1.0.6, 10.1.1.6, 10.2.0.4]
+This ELK server is configured to monitor the following machines: WEB-2, WEB-3
+[10.1.0.6, 10.1.1.6]
 
 We have installed the following Beats on these machines:
-[10.1.0.6, 10.1.1.6, 10.2.0.4]
+[10.1.0.6, 10.1.1.6]
 
 These Beats allow us to collect the following information from each machine:
 - Filebeat is a lightweight shipper for forwarding and centralizing log data. Filebeat monitors log files or locations you specify, collects log events, and forwards them either to Elasticsearch or Logstash for indexing.
@@ -180,13 +182,12 @@ These Beats allow us to collect the following information from each machine:
 
 In order to use the playbook, you will need to have an Ansible control node already configured. Assuming you have such a control node provisioned: 
 
-SSH into the control node and follow the steps below:
-- Copy the filebeat.yml file to /etc/ansible/roles/files/directory
-- Update the configuration files to include the Private IP of the Elk-Server to the ElasticSearch and Kibana sections of the configuration file.
-- Create a new ansible-playbook filebeat-playbook.yml in the /etc/ansible/roles/ directory that will install, drop in the filebeat.yml files from the /etc/ansible/roles/files/ directory, update the configuration files, and start the service for Filebeat
-- Run the playbook, and navigate to ELK-Server to check that the installation worked as expected.
-- The playbook is called filebeat-playbook.yml. You copy the file to the "/etc/ansible/hosts/" directory.
--The file you need to update is the filebeat.yml file which is a configuration file that will be dropped into the Elk-Server during the run of the ansible-playbook. When you update the host.cfg file in the ansible directory you will need to create a new group called [elkservers] and add the Private IP of the Elk-Server to the group. Then when configuring the filebeat.yml file you need to designate the Private IP of the Elk-Server in two lines of the .yml file. Lines 1106 and 1806 are the needed to be updated with the Private IP.
+SSH into the Jumpbox and connect to ansible container and follow the steps below:
+- Copy the filebeat.yml file to /etc/ansible/roles
+- Copy the configuration file with changes to the IP address for the Kibana/elasticsearch hosts
+- Create new ansible-playbook (filebeat-playbook.yml) that properly installs the filebeat.yml files
+- Run filebeat-playbook.yml and go to ELK-Server to see if installation is successful. 
+
 ![image](https://user-images.githubusercontent.com/38510755/115951459-6e7acc80-a4a6-11eb-8fac-e2684ac391ea.png)
 
 URL to check that the ELK server is running: http:[ELK server ip]/app/kibana
