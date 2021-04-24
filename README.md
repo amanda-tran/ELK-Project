@@ -190,5 +190,8 @@ SSH into the Jumpbox and connect to ansible container and follow the steps below
 
 ![image](https://user-images.githubusercontent.com/38510755/115951459-6e7acc80-a4a6-11eb-8fac-e2684ac391ea.png)
 
-URL to check that the ELK server is running: http:[ELK server ip]/app/kibana
+URL to check that the ELK server is running: http:[ELK server ip]/app/kibana and check data logs to ensure the filebeat is installed properly.
+
+![image](https://user-images.githubusercontent.com/38510755/115952664-ec41d680-a4ac-11eb-93aa-70b99868862a.png)
+
 
